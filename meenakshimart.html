@@ -1,0 +1,246 @@
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meenakshi Mart</title>
+  
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9f9f9;
+    }
+
+    header {
+      background: #333;
+      color: white;
+      padding: 10px 20px;
+      text-align: center;
+    }
+    nav {
+      background: #555;
+      color: white;
+      padding: 10px;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 20px;
+    }
+    .product {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+    }
+    .product img {
+      max-width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    .buttons button {
+      margin: 5px;
+      padding: 8px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .wishlist-btn { background: #F4ABAB; }
+    .like-btn { background: #F4ABAB; }
+    .cart-btn { background: #F4ABAB; }
+    .buy-btn { background: #F4ABAB; }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background: #333;
+      color: white;
+    }
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 50px;
+      max-width: 600px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .item {
+      background-color: #eee;
+      border: 1px solid #ccc;
+      padding: 5px;
+      text-align: center;
+      font-weight: bold;
+      overflow: hidden;
+    }
+
+    .item img {
+      width: 100%;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+      .wishlist {
+  margin: 5px;
+  padding: 5px;
+  font-family: Arial, sans-serif;
+  font-weight: 600;
+  font-size: 15px;
+  background: red;
+  color: white;
+  border-radius: 10%;
+  box-sizing: border-box;
+  display: inline-block;
+  position: relative;
+}
+
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Meenakshi Mart</h1>
+  </header>
+  <nav>
+    <a href="#">Home</a>
+    <a href="#">Wishlist</a>
+    <a href="#">Cart</a>
+    <a href="#">Login</a>
+  </nav>  
+
+    <section class="products" id="product-list">
+  </section>  
+
+    <div class="grid-container">
+    <div class="item">
+      <img src="/images/first.jpg" alt="Classic 1">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+    <div class="item">
+      <img src="/images/second.jpg" alt="Classic 2">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+    <div class="item">
+      <img src="/images/third.jpg" alt="Classic 3">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+    <div class="item">
+      <img src="/images/first.jpg" alt="Classic 4">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+    <div class="item">
+      <img src="/images/second.jpg" alt="Classic 5">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+    <div class="item">
+      <img src="/images/third.jpg" alt="Classic 6">
+      <p>Classic</p>
+      <p>500/- <span class="wishlist">cart</span></p>
+    </div>
+  </div>
+  <footer>
+    <h3>Contact us:</h3>
+    <p>Email: Meenakshishinghavi@gmail.com</p><hr>
+    <p>All rights are reserved.</p>
+    &copy; 2025 Meenakshi Mart| All rights reserved.
+  </footer>  
+  <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".wishlist").forEach(function (button) {
+      button.addEventListener("click", function () {
+        // Create message span
+        const message = document.createElement("span");
+        message.textContent = "✔ Added to wishlist";
+        message.style.position = "absolute";
+        message.style.background = "#222";
+        message.style.color = "#fff";
+        message.style.padding = "5px 10px";
+        message.style.borderRadius = "5px";
+        message.style.fontSize = "12px";
+        message.style.top = (button.offsetTop - 30) + "px";
+        message.style.left = (button.offsetLeft) + "px";
+        message.style.zIndex = 9999;
+        message.style.opacity = 1;
+        message.style.transition = "opacity 1s ease";
+
+        document.body.appendChild(message);
+
+        // remove after 2 seconds
+        setTimeout(() => {
+          message.style.opacity = 0;
+          setTimeout(() => message.remove(), 1000);
+        }, 1000);
+      });
+    });
+  });
+</script>
+
+  <script>
+    const products = [
+      { id: 1, name: "Trendy top", price: 1200, img: "/images/first.jpg" },
+      { id: 2, name: "Women's Dress", price: 900, img: "/images/second.jpg" },
+      { id: 3, name: "Kid's Shirt", price: 500, img: "/images/third.jpg" }
+    ];
+
+    const wishlist = [];
+    const cart = [];
+
+    function renderProducts() {
+      const container = document.getElementById("product-list");
+      container.innerHTML = "";
+
+      products.forEach(product => {
+        const el = document.createElement("div");
+        el.className = "product";
+        el.innerHTML = `
+          <img src="${product.img}" alt="${product.name}" />
+          <h3>${product.name}</h3>
+          <p>₹${product.price}</p>
+          <div class="buttons">
+            <button class="like-btn" onclick="alert('Liked ${product.name}!')">❤️ Like</button>
+            <button class="wishlist-btn" onclick="addToWishlist(${product.id})">💛 Wishlist</button>
+            <button class="cart-btn" onclick="addToCart(${product.id})">🛒 Cart</button>
+            <button class="buy-btn" onclick="buyNow(${product.id})">🛍️ Buy</button>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    function addToWishlist(id) {
+      if (!wishlist.includes(id)) {
+        wishlist.push(id);
+        alert("Added to wishlist!");
+      } else {
+        alert("Already in wishlist.");
+      }
+    }
+
+    function addToCart(id) {
+      if (!cart.includes(id)) {
+        cart.push(id);
+        alert("Added to cart!");
+      } else {
+        alert("Already in cart.");
+      }
+    }
+
+    function buyNow(id) {
+      const product = products.find(p => p.id === id);
+      alert(`Proceeding to buy ${product.name} for ₹${product.price}`);
+    }
+
+    renderProducts();
+  </script></body>
+</html>
